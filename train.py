@@ -60,19 +60,19 @@ for epoch in range(epochs):
 
     # Testing
 
-    # Put the model in evaluation mode
-    model.eval()
+    if epoch % 100 == 0:
+        # Put the model in evaluation mode
+        model.eval()
 
-    with torch.inference_mode():
-        # 1. Forward pass on test data
-        test_pred = model(testing_features)
+        with torch.inference_mode():
+            # 1. Forward pass on test data
+            test_pred = model(testing_features)
 
-        # 2. Caculate loss on test data
-        # predictions come in torch.float datatype, so comparisons need to be done with tensors of the same type
-        test_loss = loss_fn(test_pred, testing_labels.type(torch.float))
+            # 2. Caculate loss on test data
+            # predictions come in torch.float datatype, so comparisons need to be done with tensors of the same type
+            test_loss = loss_fn(test_pred, testing_labels.type(torch.float))
 
-        # Print out what's happening
-        if epoch % 100 == 0:
+            # Print out what's happening
             epoch_count.append(epoch)
             train_loss_values.append(loss.detach().numpy())
             test_loss_values.append(test_loss.detach().numpy())
